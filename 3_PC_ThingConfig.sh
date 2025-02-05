@@ -33,7 +33,7 @@ if [ -d "$CERTS_DIR" ]; then
         echo "Recreating the certs directory..."
         mkdir -p "$CERTS_DIR"
     else
-        exit 1
+        exit 1 # change to exit 0 if you want to execution with current certs directory
     fi
 else
     echo "Creating certs directory..."

@@ -15,29 +15,34 @@
 # *                        opensource.org/licenses/BSD-3-Clause
 # ******************************************************************************
 
-# Source the configuration file
 
 GG_DIR="/home/root/gg_lite/"
 
-dpkg -i ${GG_DIR}libzip_1.9.2-r0.0_armhf.deb
+# Install dependencies
+dpkg -i ${GG_DIR}libzip_1.10.1-r0.0_armhf.deb
+dpkg -i ${GG_DIR}uriparser_0.9.8-r0.0_armhf.deb
 
-dpkg -i ${GG_DIR}uriparser_0.9.7-r0.0_armhf.deb
+# Extract files
+tar xvf ${GG_DIR}gglite.gz -C /home/root/
 
-tar xvf ${GG_DIR}bin.gz -C /home/root/
+# Change ownership of extracted files
+chown -R root:root /home/root/aws-greengrass-lite/
 
+# Copy system files to device
+cp /home/root/aws-greengrass-lite/lib/systemd/system/* /lib/systemd/system/.
+
+# Copy certs to cert directory
 cp -r ${GG_DIR}certs /home/root/certs 
 
-mkdir -p run
+# Make run directory
+mkdir -p /var/lib/greengrass
 
-cd run
-../build/bin/ggconfigd > daemon.log 2>&1 &
+# Make config directory
+mkdir -p /etc/greengrass
 
-daemon_pid=$!
+# Copy config file to config directory
+cp ${GG_DIR}config.yaml /etc/greengrass
 
-sleep 5
-
-../build/bin/ggl-config-init --config ${GG_DIR}init_config.yml
-
-kill -9 $daemon_pid
-
-../build/bin/run_nucleus
+# Run nucleus
+chmod +x ${GG_DIR}run_nucleus
+${GG_DIR}run_nucleus

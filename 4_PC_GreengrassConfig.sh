@@ -19,11 +19,11 @@
 LOAD_CONFIG_FILE="./load_config.sh"
 source $LOAD_CONFIG_FILE
 
-sed -i "s/thingName: .*/thingName: \"${THING_NAME}\"/g" ./gg_lite/init_config.yml
-sed -i "s/awsRegion: .*/awsRegion: \"${REGION}\"/g" ./gg_lite/init_config.yml
-sed -i "s/iotCredEndpoint: .*/iotCredEndpoint: \"${CRED_ENDPOINT}\"/g" ./gg_lite/init_config.yml
-sed -i "s/iotDataEndpoint: .*/iotDataEndpoint: \"${DATA_ENDPOINT}\"/g" ./gg_lite/init_config.yml
-sed -i "s/iotRoleAlias: .*/iotRoleAlias: \"${ROLE_ALIAS_NAME}\"/g" ./gg_lite/init_config.yml
+sed -i "s/thingName: .*/thingName: \"${THING_NAME}\"/g" ./gg_lite/config.yaml
+sed -i "s/awsRegion: .*/awsRegion: \"${REGION}\"/g" ./gg_lite/config.yaml
+sed -i "s/iotCredEndpoint: .*/iotCredEndpoint: \"${CRED_ENDPOINT}\"/g" ./gg_lite/config.yaml
+sed -i "s/iotDataEndpoint: .*/iotDataEndpoint: \"${DATA_ENDPOINT}\"/g" ./gg_lite/config.yaml
+sed -i "s/iotRoleAlias: .*/iotRoleAlias: \"${ROLE_ALIAS_NAME}\"/g" ./gg_lite/config.yaml
 
 script_name=$(basename "$0")
 echo "$script_name script execution completed."

@@ -63,9 +63,37 @@ After making the necessary updates to `config.json`, run the following commands 
   ./execute.sh
   ```
 
-## 5. Using the CloudLogger component
+## 5. Viewing and Managing Greengrass Logs and Services  
 
-[Monitor AWS IoT Greengrass logs](https://docs.aws.amazon.com/greengrass/v2/developerguide/monitor-logs.html)
+All core services will be reported under the `greengrass-lite` target. View their statuses with:  
+
+```sh
+systemctl status --with-dependencies greengrass-lite.target
+```  
+
+Entire system logs can be viewed with:  
+
+```sh
+journalctl -a
+```  
+
+Individual service logs can be viewed with:  
+
+```sh
+journalctl -a -t <service-name>
+```  
+
+For example, to view deployment logs:  
+
+```sh
+journalctl -a -t ggdeploymentd
+```  
+
+To stop Greengrass Nucleus Lite, run:  
+
+```sh
+systemctl stop greengrass-lite.target
+```  
 
 
 ## 6. Verifying Greengrass Core Functionality
