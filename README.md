@@ -109,16 +109,29 @@ There are two ways to check if the Greengrass Core is functioning properly:
   ```bash
   aws greengrassv2 list-core-devices --status HEALTHY
   ```
+## 7. First Greengrass Lite Deployment  
 
-## 7. Configuration Files
+For deploying a BLE Gateway using Greengrass Lite, refer to the dedicated repository:  
 
-### 7.1. Policies
+🔗 [GreenGrass Lite BLE Gateway](https://github.com/stm32-hotspot/GreenGrass_Lite_BLE_Gateway)  
+
+This repository provides detailed steps for setting up a BLE Gateway on Greengrass Lite, including:  
+  
+- Setting up BLE sensor nodes
+- Configuring Gateway component
+- Deploying and managing edge devices
+
+Follow the instructions in the repository to complete the deployment.
+
+## 8. Configuration Files
+
+### 8.1. Policies
 - **IoTPolicyDocument.json**: Defines the IoT policy document for the device.
 - **IoTRoleAliasPolicy.json**: Defines Role alias policy. Updated by the *2_PC_IotConfig.sh* script
 - **TokenExchangeAccessPolicyDocument.json**: Specifies the policy for Token Exchange access.
 - **TokenExchangeRoleAssumePolicyDocument.json**: Defines the policy for Token Exchange role assumptions.
 
-### 7.2. Optional Configuration Parameters
+### 8.2. Optional Configuration Parameters
 
 `config.json` file with the following parameters can be left as default, understanding them may help in future customization:
 
@@ -132,45 +145,45 @@ There are two ways to check if the Greengrass Core is functioning properly:
   - **DATA_ENDPOINT** : Endpoint address. Updated by the *2_PC_IotConfig.sh* script
   - **CRED_ENDPOINT** : Credential Endpoint address. Updated by the *2_PC_IotConfig.sh* script
 
-## 8. Script Summary
+## 9. Script Summary
 
-### 8.1. load_config.sh
+### 9.1. load_config.sh
 
 Parses the various configuration JSON files and exports their contents as environment variables. This script should be run before executing any of the others.
 
-### 8.2. 1_PC_IamConfig.sh
+### 9.2. 1_PC_IamConfig.sh
 
 Sets up AWS IAM roles and policies for the device by:
 
 - Loading the necessary configuration from the environment variables set by `load_config.sh`.
 - Creates the IAM roles and policies required for Greengrass V2 setup.
 
-### 8.2. 2_PC_IotConfig.sh
+### 9.2. 2_PC_IotConfig.sh
 
 Configures AWS IoT resources
 
-### 8.2. 3_PC_ThingConfig.sh
+### 9.2. 3_PC_ThingConfig.sh
 
 Create a Thing in AWS and download the certs to ./gg_lite/certs
 
-### 8.3. 4_PC_GreengrassConfig.sh
+### 9.3. 4_PC_GreengrassConfig.sh
 
 Updates the init_config.yml file
 
-### 8.4. 5_MPU_RunGGLite.sh
+### 9.4. 5_MPU_RunGGLite.sh
 
 Configures and restarts the Greengrass Core service:
 
 - Updates `config.yaml` with security settings and AWS resource details.
 
-### 8.5. execute.sh
+### 9.5. execute.sh
 
 Orchestrates the execution of all configuration scripts:
 
 - Copies the local configuration and gg_lite to the STM32MP135 DK.
 - Install and run gg_lite on STM32MP135 DK.
 
-## 9. Cleanup Scripts
+## 10. Cleanup Scripts
 
 After configuring the STM32MP135 DK as an AWS Greengrass Core device, you can use the provided cleanup scripts to remove the AWS resources created during the setup. These scripts will handle the deletion of IAM roles, IoT Things, certificates, policies, and other associated resources.
 
@@ -188,7 +201,7 @@ Usage:
 By running these scripts, you can ensure a clean removal of resources created during the configuration of the STM32MP135 DK as a Greengrass Core device.
 
 
-### 9.1. IamConfig_Cleanup.sh
+### 10.1. IamConfig_Cleanup.sh
 
 This script removes the IAM resources that were created during the configuration process:
 
@@ -200,7 +213,7 @@ Usage:
 ./cleanup/IamConfig_Cleanup.sh
 ```
 
-### 9.2. IotConfig_Cleanup.sh
+### 10.2. IotConfig_Cleanup.sh
 
 This script removes the IoT and Greengrass resources:
 
